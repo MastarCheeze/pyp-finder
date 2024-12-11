@@ -4,13 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc --build",
-    "watch": "tsc --watch"
+    "test": "tsc --build tests && node ./build/tests/run.js",
+    "build": "tsc --build src",
+    "watch": "tsc --watch src"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1"
   }
 }
