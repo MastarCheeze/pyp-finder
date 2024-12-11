@@ -1,9 +1,9 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
 
-import { parse } from "../../src/parse";
-import type { Paper } from "../../src/types";
-import finder from "../../src/finders/bestexamhelp";
+import { parse } from "../../src/parse.js";
+import type { Paper } from "../../src/types.js";
+import finder from "../../src/finders/bestexamhelp.js";
 
 describe("BestExamHelp url finder", () => {
   // prettier-ignore

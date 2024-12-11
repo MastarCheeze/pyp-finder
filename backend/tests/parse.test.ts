@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { parse } from "../src/parse";
+import { parse } from "../src/parse.js";
 
 describe("Paper code parsing", () => {
   const passTests = [

@@ -1,4 +1,4 @@
-import type { Finder, Paper } from "../types";
+import type { Finder, Paper } from "../types.js";
 
 const urlTemplate =
   "https://bestexamhelp.com/exam/{exam}/{subjectName}-{subjectCode}/20{year}/{subjectCode}_{seasonLetter}{year}_{type}_{component}.pdf";

@@ -1,4 +1,4 @@
-import type { Paper, Type } from "./types";
+import type { Paper, Type } from "./types.js";
 
 type ParsedPaper = Omit<Paper, "type"> & { type?: Type } // same as Paper, but with optional type
 const regex = /^(?<subject>\d{4})\/(?<component>\d{2})\/((?<type>INSERT|PRE)\/)?(?<season>(F\/M|M\/J|O\/N))\/(?<year>\d{2})$/;
