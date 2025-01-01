@@ -5,6 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "start": "node build/src/server.js",
     "test": "tsc --build tests && node ./build/tests/run.js",
     "build": "tsc --build src",
     "watch": "tsc --watch src"
