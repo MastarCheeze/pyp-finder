@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>PYP Finder</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <header>
+      <h1>CAIE Past Year Paper Finder</h1>
+    </header>
+
+    <main>
+      <div class="search">
+        <div class="status">
+          <p id="status-text" style="visibility: hidden;">&nbsp;</p>
+        </div>
+
+        <div class="search-bar">
+          <input id="search-bar-input" type="text" placeholder="9709/23/M/J/21" />
+          <button id="submit">Search</button>
+        </div>
+
+        <div class="options">
+          <fieldset>
+            <legend>Paper type</legend>
+            <div><input type="radio" name="paper-type" id="qp" checked /> <label for="qp">Question Paper</label></div>
+            <div><input type="radio" name="paper-type" id="ms" /> <label for="ms">Mark Scheme</label></div>
+            <div>
+              <input type="radio" name="paper-type" id="other" disabled />
+              <label for="other">Other (PRE, INSERT)</label>
+            </div>
+            <div class="fieldset-footer">'Other' is automatically selected when paper code is entered</div>
+          </fieldset>
+        </div>
+      </div>
+    </main>
+
+    <script src="index.js"></script>
+  </body>
+</html>
