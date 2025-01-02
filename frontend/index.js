@@ -24,11 +24,15 @@ const submit = async function (ev) {
     query.set("type", type);
     const queryUrl = api + "?" + query.toString();
 
+    $("#status-text").innerText = "Searching...";
+    $("#status-text").style.visibility = "visible";
+
     const res = await fetch(queryUrl);
     const json = await res.json();
 
     if (json.success === 1) {
       window.open(json.url);
+      $("#status-text").style.visibility = "hidden";
     } else {
       $("#status-text").innerText = "Invalid code";
       $("#status-text").classList.add("status-error");
