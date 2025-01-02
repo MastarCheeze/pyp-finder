@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { parse } from "./parse.js";
 import finder from "./finders/bestexamhelp.js";
 import type { Paper, Type } from "./types.js";
@@ -9,6 +10,7 @@ async function urlExists(url: string) {
 }
 
 const app = express();
+app.use(cors());
 
 app.get("/", async (req, res) => {
   // input validation
