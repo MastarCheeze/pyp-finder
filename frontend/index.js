@@ -12,12 +12,16 @@ const debounce = (callback, wait) => {
 
 const api = "https://pyp-finder-server-417289630154.asia-east1.run.app";
 const validRegex = /^\d{4}\/\d{2}\/(?:(INSERT|PRE)\/)?(?:F\/M|M\/J|O\/N)\/\d{2}$/; // regex to check if code is valid
-const typeRegex = /^\d{4}\/\d{2}\/(INSERT|PRE)/; // regex to capture PRE and INSERT codes
 
 const submit = async function (ev) {
   const code = $("#search-bar-input").value.toUpperCase();
   if (code.match(validRegex)) {
-    const type = $(".options #qp").checked ? "qp" : "ms";
+    const type = (function() {
+      if ($(".options #qp").checked) return "qp";
+      if ($(".options #ms").checked) return "ms";
+      if ($(".options #insert").checked) return "insert";
+      if ($(".options #pre").checked) return "pre";
+    })()
 
     const query = new URLSearchParams();
     query.set("code", code);
@@ -34,7 +38,7 @@ const submit = async function (ev) {
       window.open(json.url);
       $("#status-text").style.visibility = "hidden";
     } else {
-      $("#status-text").innerText = "Invalid code";
+      $("#status-text").innerText = json.message;
       $("#status-text").classList.add("status-error");
       $("#status-text").style.visibility = "visible";
     }
@@ -48,19 +52,32 @@ $("#submit").addEventListener("click", submit);
 
 let prevType = null;
 const checkType = function (ev) {
-  if ($("#search-bar-input").value.toUpperCase().match(typeRegex)) {
-    if ($(".options #qp").checked) prevType = "qp";
-    else prevType = "ms";
+  const input = $("#search-bar-input").value.toUpperCase();
+  const matchInsert = input.includes("INSERT");
+  const matchPre = input.includes("PRE");
 
-    $(".options #other").checked = true;
-    $(".options #other").disabled = false;
+  if (matchInsert || matchPre) {
+    if (!prevType) {
+      if ($(".options #qp").checked) prevType = "qp";
+      else if ($(".options #ms").checked) prevType = "ms";
+      else if ($(".options #insert").checked) prevType = "insert";
+      else prevType = "pre";
+    }
+
     $(".options #qp").disabled = true;
     $(".options #ms").disabled = true;
+    $(".options #insert").disabled = !matchInsert;
+    $(".options #pre").disabled = !matchPre;
+
+    $(".options #insert").checked = matchInsert;
+    $(".options #pre").checked = matchPre;
   } else if (prevType) {
-    $(`.options #${prevType}`).checked = true;
-    $(".options #other").disabled = true;
     $(".options #qp").disabled = false;
     $(".options #ms").disabled = false;
+    $(".options #insert").disabled = false;
+    $(".options #pre").disabled = false;
+
+    $(`.options #${prevType}`).checked = true;
 
     prevType = null;
   }
