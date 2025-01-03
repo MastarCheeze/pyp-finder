@@ -32,7 +32,7 @@ app.get("/", async (req, res) => {
     }
 
     const type = req.query.type.toString().toUpperCase();
-    if (!(type == "MS" || type == "QP")) {
+    if (!["QP", "MS", "INSERT", "PRE"].includes(type)) {
       res.status(200).json({ success: 0, message: "Invalid paper type" });
       return;
     }
