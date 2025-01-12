@@ -27,14 +27,14 @@ insensitive).
 
 The response is returned in JSON format. The fields returned are:
 
-- `success` - `1` is a URL is found and `0` if not.
+- `success` - `1` if a URL is found and `0` if not.
 - `url` - The URL found. This field only exists when `success` is `1`.
 - `message` - The error message. This field only exists when `success` is `0`.
 
 > [!note]
 >
 > If the paper code contains the paper type (e.g. `0509/13/INSERT/M/J/21`), the `type` field is not required. The API
-> can deduce the type based on the code. This coding style is used by CAIE only for inserts and pre-release material.
+> can deduce the paper type from the code. This coding style is used by CAIE only for inserts and pre-release material.
 
 ### Example usage
 
