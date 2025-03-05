@@ -10,18 +10,19 @@ const debounce = (callback, wait) => {
   };
 };
 
-const api = "https://pyp-finder-server-417289630154.asia-east1.run.app";
+//const api = "https://pyp-finder-server-417289630154.asia-east1.run.app";
+const api = "http://localhost:8080";
 const validRegex = /^\d{4}\/\d{2}\/(?:(INSERT|PRE)\/)?(?:F\/M|M\/J|O\/N)\/\d{2}$/; // regex to check if code is valid
 
 const submit = async function (ev) {
   const code = $("#search-bar-input").value.toUpperCase();
   if (code.match(validRegex)) {
-    const type = (function() {
+    const type = (function () {
       if ($(".options #qp").checked) return "qp";
       if ($(".options #ms").checked) return "ms";
       if ($(".options #insert").checked) return "insert";
       if ($(".options #pre").checked) return "pre";
-    })()
+    })();
 
     const query = new URLSearchParams();
     query.set("code", code);
@@ -35,8 +36,12 @@ const submit = async function (ev) {
     const json = await res.json();
 
     if (json.success === 1) {
-      window.open(json.url);
-      $("#status-text").style.visibility = "hidden";
+      const newWin = window.open(json.url);
+      if (!newWin || newWin.closed || newWin.closed === undefined) {
+        $("#status-text").innerHTML = `Found. <a href="${json.url}" target="_blank">Click here</a> to open PDF.`
+      } else {
+        $("#status-text").style.visibility = "hidden";
+      }
     } else {
       $("#status-text").innerText = json.message;
       $("#status-text").classList.add("status-error");
