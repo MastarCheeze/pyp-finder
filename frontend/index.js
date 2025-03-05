@@ -10,8 +10,7 @@ const debounce = (callback, wait) => {
   };
 };
 
-//const api = "https://pyp-finder-server-417289630154.asia-east1.run.app";
-const api = "http://localhost:8080";
+const api = "https://pyp-finder-server-417289630154.asia-east1.run.app";
 const validRegex = /^\d{4}\/\d{2}\/(?:(INSERT|PRE)\/)?(?:F\/M|M\/J|O\/N)\/\d{2}$/; // regex to check if code is valid
 
 const submit = async function (ev) {
