@@ -37,7 +37,7 @@ const submit = async function (ev) {
     if (json.success === 1) {
       const newWin = window.open(json.url);
       if (!newWin || newWin.closed || newWin.closed === undefined) {
-        $("#status-text").innerHTML = `Found. <a href="${json.url}" target="_blank">Click here</a> to open PDF.`
+        $("#status-text").innerHTML = `Found. <a href="${json.url}" target="_blank">Click here</a> to open PDF.`;
       } else {
         $("#status-text").style.visibility = "hidden";
       }
@@ -53,6 +53,11 @@ const submit = async function (ev) {
   }
 };
 $("#submit").addEventListener("click", submit);
+$("#search-bar-input").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    submit();
+  }
+});
 
 let prevType = null;
 const checkType = function (ev) {
