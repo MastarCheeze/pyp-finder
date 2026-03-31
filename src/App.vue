@@ -1,9 +1,7 @@
 <script setup>
+import NavigationBar from './components/NavigationBar.vue';
 </script>
 
 <template>
-  <h1>Hello World!</h1>
+  <NavigationBar />
 </template>
-
-<style scoped>
-</style>
