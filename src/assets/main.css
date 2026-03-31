@@ -1,2 +1,16 @@
 @import './base.css';
 
+a {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-link-hover);
+  text-decoration: underline;
+}
+
+a:active {
+  color: var(--color-link-active);
+}

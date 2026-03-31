@@ -1,6 +1,42 @@
 :root {
-  --color-background: #99f6e4;
-  --color-text: #09090b;
+  /* Colors */
+  --color-brand-50: #ecfdf5;
+  --color-brand-200: #a7f3d0;
+  --color-brand-500: #10b981;
+  --color-brand-600: #059669;
+  --color-brand-700: #047857;
+  --color-brand-900: #064e3b;
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+
+  /* Brand */
+  --color-brand: var(--color-brand-500);
+  --color-brand-light: var(--color-brand-50);
+  --color-brand-dark: var(--color-brand-900);
+
+  /* Surfaces */
+  --color-bg: var(--color-neutral-50);
+  --color-surface: #ffffff;
+  --color-surface-hover: var(--color-neutral-100);
+  --color-border: var(--color-neutral-200);
+
+  /* Links */
+  --color-link: var(--color-brand-600);
+  --color-link-hover: var(--color-brand-500);
+  --color-link-active: var(--color-brand-700);
+  --color-link-muted: var(--color-neutral-600);
+
+  /* Text */
+  --color-text: var(--color-neutral-900);
+  --color-text-muted: var(--color-neutral-500);
+
+  /* Status colors */
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  --color-warning: #eab308;
 }
 
 *,
@@ -13,7 +49,7 @@
 
 body {
   min-height: 100vh;
+  background: var(--color-bg);
   color: var(--color-text);
-  background: var(--color-background);
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
