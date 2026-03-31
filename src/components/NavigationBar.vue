@@ -1,6 +1,7 @@
 <template>
   <nav>
     <div class="brand">
+      <img src="@/assets/icon.png" alt="PYP Finder Icon" id="icon">
       <h1>PYP Finder</h1>
     </div>
     <ul class="links">
@@ -28,6 +29,10 @@ nav {
   gap: 10px;
   padding: 0.6em 1.5em;
   background-color: var(--color-brand-dark);
+}
+
+#icon {
+  height: 1.75rem;
 }
 
 h1 {
