@@ -20,13 +20,14 @@ const searchClicked = (e) => {
 
 <style scoped>
 header {
-  margin: 6em 0;
+  margin-block: 4em 2em;
   display: flex;
-  justify-content: center
+  justify-content: center;
+  width: 100%;
 }
 
 form {
-  width: clamp(200px, 60%, 600px);
+  width: 100%;
 }
 
 .search {
@@ -36,6 +37,7 @@ form {
   padding: 0.4em 0.4em;
   border-radius: 32px;
   border: 1px solid var(--color-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   background-color: var(--color-surface);
   transition: outline 0.1s ease;
 }
@@ -46,6 +48,7 @@ form {
 
 .search-input {
   font-size: 1.6rem;
+  margin-left: 0.25em;
   padding-inline: 0.25em;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--color-text-muted);
@@ -53,6 +56,7 @@ form {
   border: none;
   background: transparent;
   flex: 1;
+  min-width: 0
 }
 
 .search-input::placeholder {
