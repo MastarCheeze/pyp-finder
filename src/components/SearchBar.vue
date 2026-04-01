@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from "vue"
+import { ref, watch, onMounted } from "vue"
 
 const placeholderTexts = [
   "0500/23/M/J/21",
@@ -10,23 +10,22 @@ const placeholderTexts = [
   "9700/34/CI/M/J/24",
 ]
 
-const cursorBlinkSpeed = 530 // delay in milliseconds
 const typingSpeed = 65 // delay in milliseconds
 const initialTypingWait = 500 // delay in milliseconds
-const pauseFullDuration = 5000 // delay in milliseconds
+const subsequentTypingWait = 3000 // delay in milliseconds
+const pauseFullDuration = 3000 // delay in milliseconds
 const pauseEmptyDuration = 1000 // delay in milliseconds
 const deletingSpeed = 35 // delay in milliseconds
-let deleting = false;
-let index = 0;
+let deleting = false
+let index = 0
 
 const paperCode = ref("")
-const status = ref("");
-const statusStyle = ref("");
-const statusKey = ref(0);
-const dots = ref("");
+const status = ref("")
+const statusStyle = ref("")
+const statusKey = ref(0)
+const dots = ref("")
 
 const placeholder = ref("")
-const cursor = ref("")
 const playTyping = ref(true)
 
 
@@ -95,21 +94,21 @@ function typeEffect() {
   typingId = setTimeout(typeEffect, curDelay)
 }
 
-function focus() {
-  playTyping.value = false
-  clearTimeout(typingId)
-  placeholder.value = ""
-  index = (index + 1) % placeholderTexts.length
-  deleting = false
-  stopBlinkCursor()
-}
-
-function focusOut() {
-  setTimeout(() => {
-    playTyping.value = true
-    typeEffect()
-  }, initialTypingWait)
-}
+watch(paperCode, (v) => {
+  if (v != "") {
+    playTyping.value = false
+    clearTimeout(typingId)
+    placeholder.value = ""
+    index = (index + 1) % placeholderTexts.length
+    deleting = false
+    stopBlinkCursor()
+  } else {
+    setTimeout(() => {
+      playTyping.value = true
+      typeEffect()
+    }, subsequentTypingWait)
+  }
+})
 
 function searchClicked(e) {
   emit("search", paperCode.value)
@@ -130,7 +129,7 @@ onMounted(() => {
   <header>
     <form>
       <div class="search">
-        <input @focus="focus" @focusout="focusOut" @keydown="keyDown" v-model="paperCode" class="search-input"
+        <input @keydown="keyDown" v-model="paperCode" class="search-input"
           :placeholder type="search">
         <button type="submit" @click.prevent="searchClicked">
           <span class="material-symbols-outlined search-icon">search</span>
@@ -168,7 +167,7 @@ form {
   border: 1px solid var(--color-border);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   background-color: var(--color-surface);
-  transition: outline 0.1s ease;
+  transition: outline 0.3s ease;
 }
 
 .search:focus-within {
@@ -216,7 +215,7 @@ button {
   background: transparent;
   background-color: var(--color-surface);
   border-radius: 32px;
-  transition: background-color 0.1s ease;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
@@ -228,7 +227,7 @@ button:active {
 }
 
 .search-icon {
-  color: #00000040;
+  color: color-mix(in srgb, var(--color-brand) 50%, transparent);
   transition: color 0.3s ease;
 }
 
@@ -239,7 +238,7 @@ button:active {
 }
 
 .search:focus-within .search-icon {
-  color: #00000080;
+  color: var(--color-brand);
 }
 
 #status {
