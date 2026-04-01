@@ -5,9 +5,11 @@ const placeholderTexts = [
   "0500/23/M/J/21",
   "9709/23/M/J/18",
   "2147/12/M/J/23",
+  "9794/01/M/J/16",
   "0410/13/INSERT/O/N/20",
   "0460/21/INSERT/M/J/24",
   "9700/34/CI/M/J/24",
+  "0625/52/CI/F/M/25",
 ]
 
 const typingSpeed = 65 // delay in milliseconds
@@ -129,8 +131,7 @@ onMounted(() => {
   <header>
     <form>
       <div class="search">
-        <input @keydown="keyDown" v-model="paperCode" class="search-input"
-          :placeholder type="search">
+        <input @keydown="keyDown" v-model="paperCode" class="search-input" :placeholder type="search">
         <button type="submit" @click.prevent="searchClicked">
           <span class="material-symbols-outlined search-icon">search</span>
         </button>
