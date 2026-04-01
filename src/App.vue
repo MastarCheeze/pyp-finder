@@ -114,6 +114,7 @@ function compareResult(a, b) {
 <template>
   <NavigationBar />
   <main>
+    <h2>Search CAIE past year papers effortlessly.</h2>
     <div class="container">
       <SearchBar ref="searchBarRef" @search="search" />
       <Contents v-model:results="results" />
@@ -124,7 +125,16 @@ function compareResult(a, b) {
 <style scoped>
 main {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  margin-top: 3em;
+  font-size: 1.5rem;
+  color: var(--color-brand);
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .container {
