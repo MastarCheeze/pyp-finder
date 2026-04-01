@@ -45,7 +45,6 @@ function setStatus(msg, style) {
   statusStyle.value = style
   dots.value = ""
   statusKey.value++
-  console.log("HERE")
 }
 
 function setSearching() {
@@ -54,6 +53,7 @@ function setSearching() {
   status.value = "Searching"; // Key remains "Searching"
   statusStyle.value = "";
   dots.value = "";
+  statusKey.value++
 
   animationId = setInterval(() => {
     if (dots.value.length >= 3) {
@@ -105,12 +105,6 @@ function searchClicked(e) {
   emit("search", paperCode.value)
 };
 
-function keyDown(e) {
-  if (e.key === "Enter") {
-    emit("search", paperCode.value)
-  }
-}
-
 onMounted(() => {
   setTimeout(typeEffect, initialTypingWait)
 })
@@ -120,7 +114,7 @@ onMounted(() => {
   <header>
     <form>
       <div class="search">
-        <input @keydown="keyDown" v-model="paperCode" class="search-input" :placeholder type="search">
+        <input v-model="paperCode" class="search-input" :placeholder type="search">
         <button type="submit" @click.prevent="searchClicked">
           <span class="material-symbols-outlined search-icon">search</span>
         </button>
