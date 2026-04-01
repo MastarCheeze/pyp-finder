@@ -6,12 +6,12 @@ const props = defineProps({
 const typeColors = {
   qp: "pill-green", // Question paper.
   ms: "pill-green", // Mark scheme.
-  in: "pill-green", // Insert.
-  i2: "pill-green", // Insert 2 (Survey map) for Geography.
-  pm: "pill-green", // Pre-release material for Computer Science.
-  ci: "pill-green", // Confidential instructions.
-  er: "pill-blue", // Examiner report.
-  gt: "pill-blue", // Grade thresholds.
+  in: "pill-blue", // Insert.
+  i2: "pill-blue", // Insert 2 (Survey map) for Geography.
+  pm: "pill-blue", // Pre-release material for Computer Science.
+  ci: "pill-blue", // Confidential instructions.
+  er: "pill-yellow", // Examiner report.
+  gt: "pill-yellow", // Grade thresholds.
   sy: "pill-red", // Syllabus.
   rl: "pill-red", // Reference list for Psychology.
 }
@@ -139,13 +139,20 @@ function toggleOpen(result) {
 }
 
 .pill-green {
+  /* 200 */
   background-color: #bbf7d0;
+  /* 800 */
   color: #166534;
 }
 
 .pill-blue {
   background-color: #bfdbfe;
   color: #1e40af;
+}
+
+.pill-yellow {
+  background-color: #fef08a;
+  color: #854d0e;
 }
 
 .pill-red {
