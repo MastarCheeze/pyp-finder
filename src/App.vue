@@ -62,9 +62,9 @@ async function search(paperCode) {
     res.sort(compareResult)
 
     res.unshift(relatedJson.metadata.resource)
+    console.log(res)
     results.value = res.map(convertResult)
     searchBarRef.value.setStatus("Found " + results.value.length + " results.")
-    console.log(results.value)
   } else {
     searchBarRef.value.setStatus("Invalid paper code.", "error")
   }
@@ -73,10 +73,13 @@ async function search(paperCode) {
 // convert api's json result to an object so that the Contents child can accept it
 function convertResult(obj, idx) {
   let examSeries = null
+  let year = null
   if (obj.seasonId !== undefined) {
     examSeries = obj.season + " " + obj.year.toString()
+  } else if (obj.year !== undefined) {
+    year = obj.year.toString()
   } else {
-    examSeries = obj.season
+    year = obj.yearStart.toString() + "-" + obj.yearEnd.toString()
   }
 
   let component = null
@@ -91,12 +94,13 @@ function convertResult(obj, idx) {
 
   return {
     id: idx,
-    type: obj.typeName,
+    type: obj.typeName + (obj.update ? " update" : ""),
     typeId: obj.typeId,
     url: obj.urls[0],
     qualification: obj.qualificationName,
     subject: obj.subjectName + " " + obj.subjectId,
     examSeries: examSeries,
+    year: year,
     component: component,
     variant: variant,
     alternativeUrls: obj.urls.slice(1),

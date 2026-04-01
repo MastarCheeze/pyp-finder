@@ -1,3 +1,15 @@
+<script setup>
+import { ref } from "vue"
+
+const placeholderTexts = [
+  "9709/23/M/J/21",
+  "0500/23/M/J/21",
+]
+
+const placeholder = ref("")
+
+</script>
+
 <template>
   <nav>
     <div class="brand">

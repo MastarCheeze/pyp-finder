@@ -55,9 +55,13 @@ function toggleOpen(result) {
                 <span class="label">Subject</span>
                 <span class="value">{{ result.subject }}</span>
               </div>
-              <div class="detail-item">
+              <div v-if="result.examSeries" class="detail-item">
                 <span class="label">Exam Series</span>
                 <span class="value">{{ result.examSeries }}</span>
+              </div>
+              <div v-if="result.year" class="detail-item">
+                <span class="label">Year</span>
+                <span class="value">{{ result.year }}</span>
               </div>
               <div v-if="result.component !== null" class="detail-item">
                 <span class="label">Component</span>
