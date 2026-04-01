@@ -10,8 +10,8 @@ const typeColors = {
   i2: "pill-blue", // Insert 2 (Survey map) for Geography.
   pm: "pill-blue", // Pre-release material for Computer Science.
   ci: "pill-blue", // Confidential instructions.
-  er: "pill-yellow", // Examiner report.
-  gt: "pill-yellow", // Grade thresholds.
+  er: "pill-orange", // Examiner report.
+  gt: "pill-orange", // Grade thresholds.
   sy: "pill-red", // Syllabus.
   rl: "pill-red", // Reference list for Psychology.
 }
@@ -150,9 +150,9 @@ function toggleOpen(result) {
   color: #1e40af;
 }
 
-.pill-yellow {
-  background-color: #fef08a;
-  color: #854d0e;
+.pill-orange {
+  background-color: #fed7aa;
+  color: #9a3412;
 }
 
 .pill-red {
