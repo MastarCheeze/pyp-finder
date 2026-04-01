@@ -1,15 +1,3 @@
-<script setup>
-import { ref } from "vue"
-
-const placeholderTexts = [
-  "9709/23/M/J/21",
-  "0500/23/M/J/21",
-]
-
-const placeholder = ref("")
-
-</script>
-
 <template>
   <nav>
     <div class="brand">
@@ -17,8 +5,8 @@ const placeholder = ref("")
       <h1>PYP Finder</h1>
     </div>
     <ul class="links">
-      <li><a href="">API Docs</a></li>
-      <li><a href="">Github</a></li>
+      <!-- <li><a href="">API Docs</a></li> -->
+      <li><a href="https://github.com/MastarCheeze/pyp-finder">Github</a></li>
     </ul>
   </nav>
 </template>
