@@ -1,9 +1,9 @@
 <template>
   <nav>
-    <div class="brand">
-      <img src="@/assets/icon.png" alt="PYP Finder Icon" id="icon">
+    <a href="/" class="brand">
+      <img src="@/assets/icon.png" alt="PYP Finder Icon" draggable="false" id="icon">
       <h1>PYP Finder</h1>
-    </div>
+    </a>
     <ul class="links">
       <!-- <li><a href="">API Docs</a></li> -->
       <li><a href="https://github.com/MastarCheeze/pyp-finder">Github</a></li>
@@ -30,6 +30,8 @@ nav {
   gap: 10px;
   padding: 0.6em 1.5em;
   background-color: var(--color-brand);
+  text-decoration: none;
+  cursor: pointer;
 }
 
 #icon {
