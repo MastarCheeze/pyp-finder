@@ -1,62 +1,29 @@
 <script setup>
-import { ref } from 'vue'
+const props = defineProps({
+  results: Array,
+})
 
-const results = ref([
-  {
-    id: 1,
-    type: "Mark Scheme",
-    url: "https://pypfinder.com/papers/9702/s24/ms_11.pdf",
-    qualification: "A-Level",
-    subject: "Physics",
-    examSeries: "May/June 2024",
-    component: "Paper 2: Structured Written Paper",
-    variant: "2",
-    alternativeUrls: [
-      "https://pastpapers.papacambridge.com/...",
-      "https://another-source.com/...",
-      "https://another-source.com/...",
-      "https://another-source.com/...",
-      "https://another-source.com/...",
-    ],
-    isOpen: false,
-  },
-  {
-    id: 1,
-    type: "Mark Scheme",
-    url: "https://pypfinder.com/papers/9702/s24/ms_11.pdf",
-    qualification: "A-Level",
-    subject: "Physics",
-    examSeries: "May/June 2024",
-    component: "Paper 2: Structured Written Paper",
-    variant: "2",
-    alternativeUrls: [
-      "https://pastpapers.papacambridge.com/...",
-      "https://another-source.com/...",
-      "https://another-source.com/...",
-      "https://another-source.com/...",
-      "https://another-source.com/...",
-    ],
-    isOpen: false,
-  },
-  {
-    id: 1,
-    type: "Mark Scheme",
-    url: "https://pypfinder.com/papers/9702/s24/ms_11.pdf",
-    qualification: "A-Level",
-    subject: "Physics",
-    examSeries: "May/June 2024",
-    component: "Paper 2: Structured Written Paper",
-    variant: "2",
-    alternativeUrls: [
-      "https://pastpapers.papacambridge.com/...",
-      "https://another-source.com/...",
-      "https://another-source.com/...",
-      "https://another-source.com/...",
-      "https://another-source.com/...",
-    ],
-    isOpen: false,
-  },
-]);
+const typeColors = {
+  qp: "pill-green", // Question paper.
+  ms: "pill-green", // Mark scheme.
+  in: "pill-green", // Insert.
+  i2: "pill-green", // Insert 2 (Survey map) for Geography.
+  pm: "pill-green", // Pre-release material for Computer Science.
+  ci: "pill-green", // Confidential instructions.
+  er: "pill-blue", // Examiner report.
+  gt: "pill-blue", // Grade thresholds.
+  sy: "pill-red", // Syllabus.
+  rl: "pill-red", // Reference list for Psychology.
+}
+
+// convert a long url to a short one by replacing the middle with ...
+function shortenUrl(urlStr) {
+  const url = new URL(urlStr);
+  const segments = url.pathname.split('/');
+  const fileName = segments[segments.length - 1];
+
+  return `${url.origin}/.../${fileName}`;
+}
 
 function toggleOpen(result) {
   result.isOpen = !result.isOpen
@@ -65,50 +32,53 @@ function toggleOpen(result) {
 
 <template>
   <div class="results-container">
-    <div v-for="result in results" class="result-card main-result-card">
-      <div class="result-header">
-        <span class="type-pill">{{ result.type }}</span>
-        <a :href="result.url" class="result-url">{{ result.url }}</a>
+    <TransitionGroup name="list-fade">
+      <div v-for="result in props.results" :key="result.id" class="result-card main-result-card">
+        <div class="result-header">
+          <span class="type-pill" :class="typeColors[result.typeId] ?? 'pill-green'">{{ result.type }}</span>
+          <a :href="result.url" class="result-url" target="_blank">{{ shortenUrl(result.url) }}</a>
 
-        <button class="dropdown-btn" @click="toggleOpen(result)">
-          <span class="material-symbols-outlined" :class="{ 'rotated': result.isOpen }">
-            chevron_right
-          </span>
-        </button>
-      </div>
-      <transition name="slide-details">
-        <div v-if="result.isOpen" class="result-details">
-          <div class="details-grid">
-            <div class="detail-item">
-              <span class="label">Qualification</span>
-              <span class="value">{{ result.qualification }}</span>
-            </div>
-            <div class="detail-item">
-              <span class="label">Subject</span>
-              <span class="value">{{ result.subject }}</span>
-            </div>
-            <div class="detail-item">
-              <span class="label">Exam Series</span>
-              <span class="value">{{ result.examSeries }}</span>
-            </div>
-            <div class="detail-item">
-              <span class="label">Component</span>
-              <span class="value">{{ result.component }}</span>
-            </div>
-            <div class="detail-item">
-              <span class="label">Variant</span>
-              <span class="value">{{ result.variant }}</span>
-            </div>
-            <div class="urls-item">
-              <span class="label">Alternative URLs</span>
-              <ul>
-                <li><a v-for="url in result.alternativeUrls" href="">{{ url }}</a></li>
-              </ul>
+          <button class="dropdown-btn" @click="toggleOpen(result)">
+            <span class="material-symbols-outlined" :class="{ 'rotated': result.isOpen }">
+              chevron_right
+            </span>
+          </button>
+        </div>
+        <transition name="slide-details">
+          <div v-if="result.isOpen" class="result-details">
+            <div class="details-grid">
+              <div class="detail-item">
+                <span class="label">Qualification</span>
+                <span class="value">{{ result.qualification }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Subject</span>
+                <span class="value">{{ result.subject }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Exam Series</span>
+                <span class="value">{{ result.examSeries }}</span>
+              </div>
+              <div v-if="result.component !== null" class="detail-item">
+                <span class="label">Component</span>
+                <span class="value">{{ result.component }}</span>
+              </div>
+              <div v-if="result.component !== null" class="detail-item">
+                <span class="label">Variant</span>
+                <span class="value">{{ result.variant }}</span>
+              </div>
+              <div v-if="result.alternativeUrls.length != 0" class="urls-item">
+                <span class="label">Alternative URLs</span>
+                <ul>
+                  <li><a v-for="url in result.alternativeUrls" :href="url" target="_blank">{{ shortenUrl(url) }}</a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      </transition>
-    </div>
+        </transition>
+      </div>
+    </TransitionGroup>
   </div>
 </template>
 
@@ -116,7 +86,25 @@ function toggleOpen(result) {
 .results-container {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 0.75em;
+  position: relative;
+}
+
+/* Transition for the entire list */
+.list-fade-enter-active,
+.list-fade-leave-active {
+  transition: all 0.4s ease;
+}
+
+.list-fade-enter-from,
+.list-fade-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Ensures items slide smoothly when the list reorders */
+.list-fade-move {
+  transition: transform 0.4s ease;
 }
 
 .result-card {
@@ -143,9 +131,22 @@ function toggleOpen(result) {
   padding: 0.4em 0.6em;
   border-radius: 32px;
   text-transform: uppercase;
-  background-color: #ecfdf5;
-  color: #047857;
   letter-spacing: 0.05em;
+}
+
+.pill-green {
+  background-color: #bbf7d0;
+  color: #166534;
+}
+
+.pill-blue {
+  background-color: #bfdbfe;
+  color: #1e40af;
+}
+
+.pill-red {
+  background-color: #fecaca;
+  color: #991b1b;
 }
 
 .result-url {

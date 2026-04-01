@@ -1,19 +1,81 @@
 <script setup>
-const searchClicked = (e) => {
-  console.log("Hi")
+import { ref } from "vue"
+
+const paperCode = ref("")
+const status = ref("");
+const statusStyle = ref("");
+const statusKey = ref(0);
+const dots = ref("");
+
+const emit = defineEmits(["search"])
+
+defineExpose({ setStatus, setSearching })
+
+let timeoutId = 0;
+let animationId = 0;
+
+function setStatus(msg, style, timeout) {
+  if (timeoutId) clearTimeout(timeoutId)
+  if (animationId) clearInterval(animationId);
+
+  status.value = msg
+  statusStyle.value = style
+  dots.value = ""
+  statusKey.value++
+
+  if (timeout > 0) {
+    timeoutId = setTimeout(() => {
+      status.value = ""
+      statusStyle.value = ""
+    }, timeout);
+  }
+}
+
+function setSearching() {
+  if (timeoutId) clearTimeout(timeoutId);
+  if (animationId) clearInterval(animationId);
+
+  status.value = "Searching"; // Key remains "Searching"
+  statusStyle.value = "";
+  dots.value = "";
+  statusKey.value++;
+
+  animationId = setInterval(() => {
+    if (dots.value.length >= 3) {
+      dots.value = "";
+    } else {
+      dots.value += ".";
+    }
+  }, 333);
+}
+
+function searchClicked(e) {
+  emit("search", paperCode.value)
 };
+
+function keyDown(e) {
+  if (e.key === "Enter") {
+    emit("search", paperCode.value)
+  }
+}
 </script>
 
 <template>
   <header>
     <form>
       <div class="search">
-        <input class="search-input" placeholder="Search" type="search">
+        <input @keydown="keyDown" v-model="paperCode" class="search-input" placeholder="Search" type="search">
         <button type="submit" @click.prevent="searchClicked">
           <span class="material-symbols-outlined search-icon">search</span>
         </button>
       </div>
-      <p id="status" class="">Found 21 results</p>
+      <div class="status-container">
+        <transition name="fade-status" mode="out-in">
+          <p :key="statusKey" id="status" :class="statusStyle">
+            {{ status }}{{ dots }}
+          </p>
+        </transition>
+      </div>
     </form>
   </header>
 </template>
@@ -126,5 +188,15 @@ button:active {
 
 #status.error {
   color: var(--color-error);
+}
+
+.fade-status-enter-active,
+.fade-status-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-status-enter-from,
+.fade-status-leave-to {
+  opacity: 0 !important;
 }
 </style>
