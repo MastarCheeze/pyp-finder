@@ -35,35 +35,25 @@ const emit = defineEmits(["search"])
 
 defineExpose({ setStatus, setSearching })
 
-let timeoutId = 0;
 let animationId = 0;
 let typingId = 0;
 
-function setStatus(msg, style, timeout) {
-  if (timeoutId) clearTimeout(timeoutId)
+function setStatus(msg, style) {
   if (animationId) clearInterval(animationId);
 
   status.value = msg
   statusStyle.value = style
   dots.value = ""
   statusKey.value++
-
-  if (timeout > 0) {
-    timeoutId = setTimeout(() => {
-      status.value = ""
-      statusStyle.value = ""
-    }, timeout);
-  }
+  console.log("HERE")
 }
 
 function setSearching() {
-  if (timeoutId) clearTimeout(timeoutId);
   if (animationId) clearInterval(animationId);
 
   status.value = "Searching"; // Key remains "Searching"
   statusStyle.value = "";
   dots.value = "";
-  statusKey.value++;
 
   animationId = setInterval(() => {
     if (dots.value.length >= 3) {
@@ -103,7 +93,6 @@ watch(paperCode, (v) => {
     placeholder.value = ""
     index = (index + 1) % placeholderTexts.length
     deleting = false
-    stopBlinkCursor()
   } else {
     setTimeout(() => {
       playTyping.value = true
