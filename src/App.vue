@@ -130,11 +130,13 @@ main {
 }
 
 h2 {
+  width: clamp(200px, 50%, 600px);
   margin-top: 3em;
   font-size: 1.5rem;
   color: var(--color-brand);
   font-weight: bold;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
+  text-align: center;
 }
 
 .container {
