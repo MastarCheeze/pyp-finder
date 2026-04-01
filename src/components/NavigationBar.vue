@@ -17,6 +17,7 @@ nav {
   align-items: stretch;
   background-color: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 0px 3px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 1000;

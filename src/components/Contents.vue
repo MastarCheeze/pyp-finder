@@ -118,7 +118,7 @@ function toggleOpen(result) {
   border-radius: 12px;
   font-family: sans-serif;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   font-size: 0.875rem;
 }
 

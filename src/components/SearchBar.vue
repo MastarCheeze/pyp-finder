@@ -166,7 +166,7 @@ form {
   padding: 0.4em 0.4em;
   border-radius: 32px;
   border: 1px solid var(--color-border);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   background-color: var(--color-surface);
   transition: outline 0.3s ease;
 }
