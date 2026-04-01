@@ -1,5 +1,23 @@
 <script setup>
-import { ref } from "vue"
+import { ref, computed, onMounted } from "vue"
+
+const placeholderTexts = [
+  "0500/23/M/J/21",
+  "9709/23/M/J/18",
+  "2147/12/M/J/23",
+  "0410/13/INSERT/O/N/20",
+  "0460/21/INSERT/M/J/24",
+  "9700/34/CI/M/J/24",
+]
+
+const cursorBlinkSpeed = 530 // delay in milliseconds
+const typingSpeed = 65 // delay in milliseconds
+const initialTypingWait = 500 // delay in milliseconds
+const pauseFullDuration = 5000 // delay in milliseconds
+const pauseEmptyDuration = 1000 // delay in milliseconds
+const deletingSpeed = 35 // delay in milliseconds
+let deleting = false;
+let index = 0;
 
 const paperCode = ref("")
 const status = ref("");
@@ -7,12 +25,18 @@ const statusStyle = ref("");
 const statusKey = ref(0);
 const dots = ref("");
 
+const placeholder = ref("")
+const cursor = ref("")
+const playTyping = ref(true)
+
+
 const emit = defineEmits(["search"])
 
 defineExpose({ setStatus, setSearching })
 
 let timeoutId = 0;
 let animationId = 0;
+let typingId = 0;
 
 function setStatus(msg, style, timeout) {
   if (timeoutId) clearTimeout(timeoutId)
@@ -49,6 +73,44 @@ function setSearching() {
   }, 333);
 }
 
+function typeEffect() {
+  let curDelay = 0
+  if (!deleting) {
+    placeholder.value = placeholderTexts[index].slice(0, placeholder.value.length + 1)
+    curDelay = typingSpeed
+  } else {
+    placeholder.value = placeholderTexts[index].slice(0, placeholder.value.length - 1)
+    curDelay = deletingSpeed
+  }
+
+  if (placeholder.value == placeholderTexts[index]) {
+    deleting = true
+    curDelay = pauseFullDuration
+  } else if (placeholder.value == "") {
+    deleting = false
+    curDelay = pauseEmptyDuration
+    index = (index + 1) % placeholderTexts.length
+  }
+
+  typingId = setTimeout(typeEffect, curDelay)
+}
+
+function focus() {
+  playTyping.value = false
+  clearTimeout(typingId)
+  placeholder.value = ""
+  index = (index + 1) % placeholderTexts.length
+  deleting = false
+  stopBlinkCursor()
+}
+
+function focusOut() {
+  setTimeout(() => {
+    playTyping.value = true
+    typeEffect()
+  }, initialTypingWait)
+}
+
 function searchClicked(e) {
   emit("search", paperCode.value)
 };
@@ -58,13 +120,18 @@ function keyDown(e) {
     emit("search", paperCode.value)
   }
 }
+
+onMounted(() => {
+  setTimeout(typeEffect, initialTypingWait)
+})
 </script>
 
 <template>
   <header>
     <form>
       <div class="search">
-        <input @keydown="keyDown" v-model="paperCode" class="search-input" placeholder="Search" type="search">
+        <input @focus="focus" @focusout="focusOut" @keydown="keyDown" v-model="paperCode" class="search-input"
+          :placeholder type="search">
         <button type="submit" @click.prevent="searchClicked">
           <span class="material-symbols-outlined search-icon">search</span>
         </button>
@@ -118,11 +185,12 @@ form {
   border: none;
   background: transparent;
   flex: 1;
-  min-width: 0
+  min-width: 0;
+  color: var(--color-brand);
 }
 
 .search-input::placeholder {
-  color: #00000040;
+  color: color-mix(in srgb, var(--color-brand) 50%, transparent);
 }
 
 /* Removes the 'x' in Chrome, Safari, and newer Edge */
