@@ -29,7 +29,7 @@ nav {
   align-items: center;
   gap: 10px;
   padding: 0.6em 1.5em;
-  background-color: var(--color-brand-dark);
+  background-color: var(--color-brand);
 }
 
 #icon {
