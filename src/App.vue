@@ -62,7 +62,6 @@ async function search(paperCode) {
     res.sort(compareResult)
 
     res.unshift(relatedJson.metadata.resource)
-    console.log(res)
     results.value = res.map(convertResult)
     searchBarRef.value.setStatus("Found " + results.value.length + " results.")
   } else {
