@@ -1,6 +1,6 @@
 :root {
   /* Colors */
-  --color-brand-50: #ecfdf5;
+  --color-brand-100: #d1fae5;
   --color-brand-200: #a7f3d0;
   --color-brand-500: #10b981;
   --color-brand-600: #059669;
@@ -14,7 +14,7 @@
 
   /* Brand */
   --color-brand: var(--color-brand-500);
-  --color-brand-light: var(--color-brand-50);
+  --color-brand-light: var(--color-brand-100);
   --color-brand-dark: var(--color-brand-900);
 
   /* Surfaces */
