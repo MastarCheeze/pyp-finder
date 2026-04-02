@@ -5,7 +5,7 @@
       <h1>PYP Finder</h1>
     </a>
     <ul class="links">
-      <!-- <li><a href="">API Docs</a></li> -->
+      <li><a href="https://pypfinder.mastarcheeze.com/docs">API Documentation</a></li>
       <li><a href="https://github.com/MastarCheeze/pyp-finder">Github</a></li>
     </ul>
   </nav>
