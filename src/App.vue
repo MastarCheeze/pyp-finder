@@ -29,8 +29,14 @@ async function search(paperCode) {
     searchBarRef.value.setSearching()
     results.value = []
 
-    const mainRes = await fetch(apiUrl + "/resources?paper-code=" + paperCode)
-    const mainJson = await mainRes.json()
+    let mainRes, mainJson
+    try {
+      mainRes = await fetch(apiUrl + "/resources?paper-code=" + paperCode)
+      mainJson = await mainRes.json()
+    } catch {
+      searchBarRef.value.setStatus("Unable to connect to API.", "error")
+      return
+    }
 
     if (!mainJson.success) {
       searchBarRef.value.setStatus("An unknown error has occured.", "error")
