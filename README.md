@@ -11,4 +11,4 @@ through a dozen links before getting the PDF I want.
 
 ## API
 
-The website uses an API to find exam papers. The API will be available for public use soon.
+The website uses an API to find exam papers. The API is available for public use, view the documentation at [https://pypfinder.mastarcheeze.com/docs](https://pypfinder.mastarcheeze.com/docs).
