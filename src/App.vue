@@ -25,6 +25,8 @@ const results = ref([])
 const apiUrl = "https://pypfinder.mastarcheeze.com/api/v1"
 
 async function search(paperCode) {
+  paperCode = paperCode.toUpperCase()
+
   if (paperCode.match(paperCodeRegex)) {
     searchBarRef.value.setSearching()
     results.value = []
